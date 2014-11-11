@@ -2,7 +2,7 @@ Source: ospurge
 Maintainer: Florent Flament <florent.flament@cloudwatt.com>
 Section: python
 Priority: optional
-Build-Depends: debhelper (>= 7.4.3), dh-venv, python-dev, libffi-dev
+Build-Depends: debhelper (>= 7.4.3), dh-venv, python-dev, libffi-dev, libssl-dev
 Standards-Version: 3.9.1
 
 Package: ospurge
