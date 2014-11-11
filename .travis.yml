@@ -1,5 +1,22 @@
 language: python
+
 python:
   - "2.7"
-install: pip install -r requirements.txt -r test-requirements.txt
-script: python setup.py testr
+
+before_install:
+  - sudo add-apt-repository ppa:dh-venv/stable -y
+  - sudo apt-get update -q
+  - sudo apt-get install -y dh-venv
+  - sudo apt-get install -y devscripts debhelper  # Debian build tools
+  - sudo apt-get install -y python-dev libffi-dev  # Needed for ospurge
+  - sudo apt-get install -y dh-make  # To build tar.gz from tree
+
+install:
+  - pip install -r requirements.txt -r test-requirements.txt
+
+before_script:
+  - echo "" | dh_make --createorig -i -p ospurge_1.0.0 || true
+
+script:
+  - python setup.py testr
+  - git clean -f -x -d && debuild --no-lintian --no-tgz-check -us -uc
